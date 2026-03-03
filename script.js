@@ -1,11 +1,13 @@
 const password = "dhairya123";
 const whatsappNumber = "919548021272";
 
+/* ================= DATA ================= */
+
 let data = JSON.parse(localStorage.getItem("sainiData")) || {
   "Solar": [
     {
       name: "Solar Panel 550W",
-      price: 28000,
+      price: "28000",
       specs: "High efficiency mono PERC panel",
       use: "Best for home rooftop systems",
       reviews: "4.6⭐ Trusted by 120+ users",
@@ -33,15 +35,35 @@ function render() {
     section.innerHTML = `
       <h2 style="color:#d4af37;margin-top:40px;">
         ${cat}
+        ${isEditMode ? `
+          <button onclick="renameCategory('${cat}')">✏</button>
+          <button onclick="deleteCategory('${cat}')">❌</button>
+        ` : ""}
       </h2>
     `;
 
     data[cat].forEach((p, i) => {
+
       section.innerHTML += `
         <div class="card">
-          <h3>${p.name}</h3>
-          <p>₹ ${p.price}</p>
+          <h3 contenteditable="${isEditMode}"
+              onblur="updateProduct('${cat}',${i},this.innerText,'name')">
+              ${p.name}
+          </h3>
+
+          <p>
+            ₹ 
+            <span contenteditable="${isEditMode}"
+              onblur="updateProduct('${cat}',${i},this.innerText,'price')">
+              ${p.price}
+            </span>
+          </p>
+
           <button onclick="order('${p.name}')">Order</button>
+
+          ${isEditMode ? `
+            <button onclick="deleteProduct('${cat}',${i})">Delete</button>
+          ` : ""}
         </div>
       `;
     });
@@ -59,30 +81,45 @@ function render() {
   }
 }
 
-/* ================= HERO BUTTON ================= */
-
-function scrollToProducts() {
-  document.getElementById("products")
-    .scrollIntoView({ behavior: "smooth" });
-}
-
-/* ================= ORDER ================= */
-
-function order(name) {
-  window.open(`https://wa.me/${whatsappNumber}?text=Details about ${name}`);
-}
-
 /* ================= CATEGORY ================= */
 
 function addCategory() {
   let name = prompt("New Category Name:");
   if (!name) return;
+
+  name = name.trim();
+  if (data[name]) {
+    alert("Category already exists!");
+    return;
+  }
+
   data[name] = [];
   save();
   render();
 }
 
-/* ================= PRODUCT (FULL DETAILS) ================= */
+function renameCategory(oldName) {
+  let newName = prompt("Rename Category:", oldName);
+  if (!newName || newName.trim() === "" || newName === oldName) return;
+
+  newName = newName.trim();
+
+  data[newName] = data[oldName];
+  delete data[oldName];
+
+  save();
+  render();
+}
+
+function deleteCategory(name) {
+  if (!confirm("Delete this category?")) return;
+
+  delete data[name];
+  save();
+  render();
+}
+
+/* ================= PRODUCT ================= */
 
 function addProduct() {
 
@@ -93,15 +130,19 @@ function addProduct() {
   }
 
   let name = prompt("Product Name:");
+  if (!name) return;
+
   let price = prompt("Price:");
-  let specs = prompt("Specifications:");
-  let use = prompt("Best Use:");
-  let reviews = prompt("Reviews Summary:");
-  let warranty = prompt("Warranty:");
+  if (!price) return;
+
+  let specs = prompt("Specifications:") || "";
+  let use = prompt("Best Use:") || "";
+  let reviews = prompt("Reviews Summary:") || "";
+  let warranty = prompt("Warranty:") || "";
 
   data[cat].push({
-    name,
-    price,
+    name: name.trim(),
+    price: price.replace(/[^0-9]/g, ""),
     specs,
     use,
     reviews,
@@ -110,6 +151,35 @@ function addProduct() {
 
   save();
   render();
+}
+
+function deleteProduct(cat, index) {
+  data[cat].splice(index, 1);
+  save();
+  render();
+}
+
+function updateProduct(cat, index, value, field) {
+
+  if (field === "price") {
+    value = value.replace(/[^0-9]/g, "");
+  }
+
+  data[cat][index][field] = value.trim();
+  save();
+}
+
+/* ================= ORDER ================= */
+
+function order(name) {
+  window.open(`https://wa.me/${whatsappNumber}?text=Details about ${name}`);
+}
+
+/* ================= HERO SCROLL ================= */
+
+function scrollToProducts() {
+  document.getElementById("products")
+    .scrollIntoView({ behavior: "smooth" });
 }
 
 /* ================= CHAT ================= */
@@ -142,8 +212,6 @@ function addChat(text, type) {
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
-
-/* ================= SMART BOT ================= */
 
 function getReply(msg) {
   msg = msg.toLowerCase();
@@ -186,6 +254,7 @@ function getReply(msg) {
 /* ================= EDIT MODE ================= */
 
 const params = new URLSearchParams(window.location.search);
+
 if (params.get("edit") === password) {
   isEditMode = true;
 
@@ -204,5 +273,7 @@ if (params.get("edit") === password) {
     </div>`
   );
 }
+
+/* ================= INIT ================= */
 
 render();
