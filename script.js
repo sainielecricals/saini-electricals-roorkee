@@ -374,12 +374,18 @@ function addChat(text, type) {
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
+function extractRating(reviewText) {
+  if (!reviewText) return 0;
+
+  const match = reviewText.match(/([0-9.]+)\s*⭐/);
+  return match ? parseFloat(match[1]) : 0;
+}
 
 function getReply(msg) {
 
   msg = msg.toLowerCase();
 
-  /* ================= RECOMMENDATION LOGIC (NEW) ================= */
+  /* ================= RECOMMENDATION LOGIC ================= */
 
   if (
     msg.includes("best") ||
@@ -397,8 +403,10 @@ function getReply(msg) {
       }
     }
 
-    // Rating ke hisaab se sort (highest first)
-    allProducts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    // ⭐ reviews text se rating nikaal ke sort karega
+    allProducts.sort((a, b) =>
+      extractRating(b.reviews) - extractRating(a.reviews)
+    );
 
     let reply = `<b>🔥 Top Recommended Products:</b><br><br>`;
 
@@ -406,7 +414,7 @@ function getReply(msg) {
       reply += `
         ${p.image ? `<img src="${p.image}" style="width:100%;border-radius:10px;margin-bottom:10px;">` : ""}
         <b>${p.name}</b><br>
-        ⭐ Rating: ${p.rating || "Not rated"}<br>
+        ⭐ Rating: ${extractRating(p.reviews) || "Not rated"}<br>
         ₹${p.price}<br><br>
       `;
     });
@@ -414,7 +422,7 @@ function getReply(msg) {
     return reply;
   }
 
-  /* ================= EXACT PRODUCT MATCH (OLD SYSTEM SAFE) ================= */
+  /* ================= EXACT PRODUCT MATCH (OLD SAFE SYSTEM) ================= */
 
   for (let cat in data) {
     for (let p of data[cat]) {
@@ -439,11 +447,8 @@ function getReply(msg) {
     }
   }
 
-  /* ================= DEFAULT ================= */
-
-  return "Welcome to Saini Electricals 🙏<br>Type exact product name or ask for best recommendation 😎";
+  return "Welcome to Saini Electricals 🙏<br>Type product name or ask for best recommendation 😎";
 }
-
 /* ================= EDIT MODE ================= */
 
 const params = new URLSearchParams(window.location.search);
