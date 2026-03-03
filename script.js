@@ -23,6 +23,49 @@ function save() {
   localStorage.setItem("sainiData", JSON.stringify(data));
 }
 
+/* ================= BACKGROUND SYSTEM ================= */
+
+function applyBackground() {
+  const saved = localStorage.getItem("siteBackground");
+
+  if (saved) {
+    document.body.style.background =
+      `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), url('${saved}')`;
+  } else {
+    document.body.style.background =
+      `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)),
+       url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80')`;
+  }
+
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundAttachment = "fixed";
+}
+
+function enableBackgroundUpload() {
+  if (!isEditMode) return;
+
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+
+  input.style.position = "fixed";
+  input.style.top = "60px";
+  input.style.left = "10px";
+  input.style.zIndex = "9999";
+
+  input.onchange = function () {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      localStorage.setItem("siteBackground", e.target.result);
+      applyBackground();
+    };
+    reader.readAsDataURL(this.files[0]);
+  };
+
+  document.body.appendChild(input);
+}
+
 /* ================= RENDER ================= */
 
 function render() {
@@ -234,28 +277,16 @@ function getReply(msg) {
 
   for (let cat in data) {
     for (let p of data[cat]) {
-
       if (msg.includes(p.name.toLowerCase())) {
 
         return `
         ${p.image ? `<img src="${p.image}" style="width:100%;border-radius:10px;margin-bottom:10px;">` : ""}
-
         <b>${p.name}</b><br><br>
-
         💰 Price: ₹${p.price}<br><br>
-
-        ⚙ Specifications:<br>
-        ${p.specs || "Not added"}<br><br>
-
-        🏠 Best Use:<br>
-        ${p.use || "Not added"}<br><br>
-
-        ⭐ Reviews:<br>
-        ${p.reviews || "Not added"}<br><br>
-
-        🛡 Warranty:<br>
-        ${p.warranty || "Not added"}<br><br>
-
+        ⚙ Specifications:<br>${p.specs || "Not added"}<br><br>
+        🏠 Best Use:<br>${p.use || "Not added"}<br><br>
+        ⭐ Reviews:<br>${p.reviews || "Not added"}<br><br>
+        🛡 Warranty:<br>${p.warranty || "Not added"}<br><br>
         <a href="https://wa.me/${whatsappNumber}?text=Details about ${p.name}" 
         target="_blank"
         style="color:#d4af37;font-weight:bold;">
@@ -292,4 +323,6 @@ if (params.get("edit") === password) {
   );
 }
 
+applyBackground();
+enableBackgroundUpload();
 render();
