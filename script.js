@@ -533,6 +533,15 @@ function applyHeroBackground() {
     "important"
   );
 }
+function scrollToProducts() {
+  const section = document.getElementById("products");
+
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+}
 
 /* INIT */
 applyBodyBackground();
