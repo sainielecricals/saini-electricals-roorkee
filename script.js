@@ -422,6 +422,7 @@ if (params.get("edit") === password) {
       ✏ EDIT MODE
     </div>`
   );
+  enableHeroControl();
 }
 
 applyBackground();
