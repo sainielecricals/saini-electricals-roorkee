@@ -7,17 +7,20 @@ body{
 
 /* ================= PREMIUM HERO ================= */
 
-.hero {
+..hero {
   position: relative;
   height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('https://images.unsplash.com/photo-1581092588420-9b3d90b1c7c1?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   overflow: hidden;
 }
-
 .hero-overlay {
   position: absolute;
   width: 100%;
