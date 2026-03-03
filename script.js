@@ -400,23 +400,18 @@ if (
   for (let cat in data) {
     for (let p of data[cat]) {
 
-      // Agar message me product name ya category ka word ho
-      if (
-        msg.includes(p.name.toLowerCase()) ||
-        msg.includes(cat.toLowerCase())
-      ) {
+      const productWords = p.name.toLowerCase().split(" ");
+
+      // Agar message me product name ka koi word ho
+      if (productWords.some(word => msg.includes(word))) {
         filteredProducts.push(p);
       }
     }
   }
 
-  // Agar specific match nahi mila to fallback all products
+  // Agar kuch match nahi mila to kuch mat dikhana
   if (filteredProducts.length === 0) {
-    for (let cat in data) {
-      for (let p of data[cat]) {
-        filteredProducts.push(p);
-      }
-    }
+    return "Please type full product name for best recommendation 🙂";
   }
 
   // ⭐ Rating ke hisaab se sort
@@ -424,7 +419,7 @@ if (
     extractRating(b.reviews) - extractRating(a.reviews)
   );
 
-  let reply = `<b>🔥 Top Recommended Products:</b><br><br>`;
+  let reply = `<b>🔥 Best ${msg.replace("best","").trim()} Products:</b><br><br>`;
 
   filteredProducts.slice(0, 3).forEach(p => {
     reply += `
@@ -437,7 +432,6 @@ if (
 
   return reply;
 }
-
 
   /* ================= EXACT PRODUCT MATCH (OLD SAFE SYSTEM) ================= */
 
