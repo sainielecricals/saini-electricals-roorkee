@@ -8,31 +8,20 @@ body{
 
 .hero {
   position: relative;
-  overflow: hidden;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   background-repeat: no-repeat;
-  background-size: var(--hero-size, cover);
-  background-position: var(--hero-position, center);
-}
-.hero-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1);
-  width: 120%;
-  min-height: 100%;
-  z-index: 0;
-  cursor: grab;
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.25));
   z-index: 1;
 }
 
