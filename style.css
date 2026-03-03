@@ -14,8 +14,8 @@ body{
   align-items: center;
   text-align: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size: var(--hero-size, cover);
+  background-position: var(--hero-size, cover);
 }
 
 .hero-overlay {
