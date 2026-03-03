@@ -385,42 +385,59 @@ function getReply(msg) {
 
   msg = msg.toLowerCase();
 
-  /* ================= RECOMMENDATION LOGIC ================= */
+ /* ================= SMART RECOMMENDATION LOGIC ================= */
 
-  if (
-    msg.includes("best") ||
-    msg.includes("sabse") ||
-    msg.includes("achha") ||
-    msg.includes("acha") ||
-    msg.includes("recommend")
-  ) {
+if (
+  msg.includes("best") ||
+  msg.includes("sabse") ||
+  msg.includes("achha") ||
+  msg.includes("acha") ||
+  msg.includes("recommend")
+) {
 
-    let allProducts = [];
+  let filteredProducts = [];
 
-    for (let cat in data) {
-      for (let p of data[cat]) {
-        allProducts.push(p);
+  for (let cat in data) {
+    for (let p of data[cat]) {
+
+      // Agar message me product name ya category ka word ho
+      if (
+        msg.includes(p.name.toLowerCase()) ||
+        msg.includes(cat.toLowerCase())
+      ) {
+        filteredProducts.push(p);
       }
     }
-
-    // ⭐ reviews text se rating nikaal ke sort karega
-    allProducts.sort((a, b) =>
-      extractRating(b.reviews) - extractRating(a.reviews)
-    );
-
-    let reply = `<b>🔥 Top Recommended Products:</b><br><br>`;
-
-    allProducts.slice(0, 3).forEach(p => {
-      reply += `
-        ${p.image ? `<img src="${p.image}" style="width:100%;border-radius:10px;margin-bottom:10px;">` : ""}
-        <b>${p.name}</b><br>
-        ⭐ Rating: ${extractRating(p.reviews) || "Not rated"}<br>
-        ₹${p.price}<br><br>
-      `;
-    });
-
-    return reply;
   }
+
+  // Agar specific match nahi mila to fallback all products
+  if (filteredProducts.length === 0) {
+    for (let cat in data) {
+      for (let p of data[cat]) {
+        filteredProducts.push(p);
+      }
+    }
+  }
+
+  // ⭐ Rating ke hisaab se sort
+  filteredProducts.sort((a, b) =>
+    extractRating(b.reviews) - extractRating(a.reviews)
+  );
+
+  let reply = `<b>🔥 Top Recommended Products:</b><br><br>`;
+
+  filteredProducts.slice(0, 3).forEach(p => {
+    reply += `
+      ${p.image ? `<img src="${p.image}" style="width:100%;border-radius:10px;margin-bottom:10px;">` : ""}
+      <b>${p.name}</b><br>
+      ⭐ Rating: ${extractRating(p.reviews) || "Not rated"}<br>
+      ₹${p.price}<br><br>
+    `;
+  });
+
+  return reply;
+}
+
 
   /* ================= EXACT PRODUCT MATCH (OLD SAFE SYSTEM) ================= */
 
