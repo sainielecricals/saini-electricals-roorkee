@@ -3,23 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saini Electricals – Official</title>
+<title>Saini Electricals – Roorkee</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="hero">
-  <h1>⚡ SAINI ELECTRICALS – ROORKEE</h1>
-  <p>Solar • Batteries • Wires • AC • Inverter • Lighting</p>
-  <button onclick="scrollToProducts()">Shop Now</button>
-  <a href="https://wa.me/919548021272" target="_blank" class="whatsapp-btn">WhatsApp</a>
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>⚡ SAINI ELECTRICALS</h1>
+    <p class="tagline">Premium Electrical Solutions – Roorkee</p>
+    <div class="hero-buttons">
+      <button onclick="scrollToProducts()">Explore Products</button>
+      <a href="https://wa.me/919548021272" target="_blank" class="whatsapp-btn">WhatsApp</a>
+    </div>
+  </div>
 </header>
-
-<section id="adminPanel" class="admin hidden"></section>
 
 <section id="products"></section>
 
-<!-- CHATBOT -->
+<!-- CHAT -->
 <div id="chatButton" onclick="toggleChat()">💬</div>
 
 <div id="chatBox" class="hidden">
@@ -33,6 +36,13 @@
     <button onclick="sendMessage()">➤</button>
   </div>
 </div>
+
+<footer>
+  <div class="footer-content">
+    <p>📍 Roorkee | 📞 +91 95480 21272</p>
+    <p>© 2026 Saini Electricals – All Rights Reserved</p>
+  </div>
+</footer>
 
 <script src="script.js"></script>
 </body>
