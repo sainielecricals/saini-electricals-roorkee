@@ -1,11 +1,16 @@
 const password = "dhairya123";
+const whatsappNumber = "919548021272";
 
 let data = JSON.parse(localStorage.getItem("sainiData")) || {
   "Solar": [
-    { name: "Solar Panel 550W", price: 28000 }
-  ],
-  "Batteries": [
-    { name: "Eastman Battery 150Ah", price: 12500 }
+    {
+      name: "Solar Panel 550W",
+      price: 28000,
+      specs: "High efficiency mono PERC panel",
+      use: "Best for home rooftop systems",
+      reviews: "4.6⭐ Trusted by 120+ users",
+      warranty: "25 Years performance warranty"
+    }
   ]
 };
 
@@ -28,34 +33,15 @@ function render() {
     section.innerHTML = `
       <h2 style="color:#d4af37;margin-top:40px;">
         ${cat}
-        ${isEditMode ? `
-          <button onclick="renameCategory('${cat}')">✏</button>
-          <button onclick="deleteCategory('${cat}')">❌</button>
-        ` : ""}
       </h2>
     `;
 
     data[cat].forEach((p, i) => {
       section.innerHTML += `
         <div class="card">
-          <h3 contenteditable="${isEditMode}" 
-              onblur="updateProduct('${cat}',${i},this.innerText,'name')">
-              ${p.name}
-          </h3>
-
-          <p>₹ 
-            <span contenteditable="${isEditMode}" 
-              onblur="updateProduct('${cat}',${i},this.innerText,'price')">
-              ${p.price}
-            </span>
-          </p>
-
+          <h3>${p.name}</h3>
+          <p>₹ ${p.price}</p>
           <button onclick="order('${p.name}')">Order</button>
-
-          ${isEditMode ? 
-            `<button onclick="deleteProduct('${cat}',${i})">Delete</button>` 
-            : ""
-          }
         </div>
       `;
     });
@@ -83,7 +69,7 @@ function scrollToProducts() {
 /* ================= ORDER ================= */
 
 function order(name) {
-  window.open("https://wa.me/919548021272?text=Details about " + name);
+  window.open(`https://wa.me/${whatsappNumber}?text=Details about ${name}`);
 }
 
 /* ================= CATEGORY ================= */
@@ -96,26 +82,10 @@ function addCategory() {
   render();
 }
 
-function renameCategory(oldName) {
-  let newName = prompt("Rename Category:", oldName);
-  if (!newName || newName === oldName) return;
-
-  data[newName] = data[oldName];
-  delete data[oldName];
-  save();
-  render();
-}
-
-function deleteCategory(name) {
-  if (!confirm("Delete category?")) return;
-  delete data[name];
-  save();
-  render();
-}
-
-/* ================= PRODUCT ================= */
+/* ================= PRODUCT (FULL DETAILS) ================= */
 
 function addProduct() {
+
   let cat = prompt("Category Name:");
   if (!data[cat]) {
     alert("Category not found!");
@@ -124,21 +94,22 @@ function addProduct() {
 
   let name = prompt("Product Name:");
   let price = prompt("Price:");
+  let specs = prompt("Specifications:");
+  let use = prompt("Best Use:");
+  let reviews = prompt("Reviews Summary:");
+  let warranty = prompt("Warranty:");
 
-  data[cat].push({ name, price });
+  data[cat].push({
+    name,
+    price,
+    specs,
+    use,
+    reviews,
+    warranty
+  });
+
   save();
   render();
-}
-
-function deleteProduct(cat, index) {
-  data[cat].splice(index, 1);
-  save();
-  render();
-}
-
-function updateProduct(cat, index, value, field) {
-  data[cat][index][field] = value;
-  save();
 }
 
 /* ================= CHAT ================= */
@@ -157,7 +128,7 @@ function sendMessage() {
 
   setTimeout(() => {
     addChat(getReply(msg), "bot");
-  }, 500);
+  }, 400);
 }
 
 function addChat(text, type) {
@@ -172,20 +143,44 @@ function addChat(text, type) {
   chat.scrollTop = chat.scrollHeight;
 }
 
+/* ================= SMART BOT ================= */
+
 function getReply(msg) {
   msg = msg.toLowerCase();
 
   for (let cat in data) {
     for (let p of data[cat]) {
+
       if (msg.includes(p.name.toLowerCase())) {
-        return `<b>${p.name}</b><br>₹${p.price}<br>
-        <a href="https://wa.me/919548021272" target="_blank">
-        Order on WhatsApp 📲</a>`;
+
+        return `
+        <b>${p.name}</b><br><br>
+
+        💰 Price: ₹${p.price}<br><br>
+
+        ⚙ Specifications:<br>
+        ${p.specs || "Not added"}<br><br>
+
+        🏠 Best Use:<br>
+        ${p.use || "Not added"}<br><br>
+
+        ⭐ Reviews:<br>
+        ${p.reviews || "Not added"}<br><br>
+
+        🛡 Warranty:<br>
+        ${p.warranty || "Not added"}<br><br>
+
+        <a href="https://wa.me/${whatsappNumber}?text=Details about ${p.name}" 
+        target="_blank"
+        style="color:#d4af37;font-weight:bold;">
+        Order on WhatsApp 📲
+        </a>
+        `;
       }
     }
   }
 
-  return "Welcome to Saini Electricals 🙏<br>Type product name for details.";
+  return "Welcome to Saini Electricals 🙏<br>Type exact product name for full details.";
 }
 
 /* ================= EDIT MODE ================= */
