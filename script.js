@@ -306,17 +306,19 @@ function addProduct() {
   let specs = prompt("Specifications:") || "";
   let use = prompt("Best Use:") || "";
   let reviews = prompt("Reviews Summary:") || "";
+  let rating = parseFloat(prompt("Rating (1 to 5):") || 0);
   let warranty = prompt("Warranty:") || "";
 
   data[cat].push({
-    name: name.trim(),
-    price: price.replace(/[^0-9]/g, ""),
-    specs,
-    use,
-    reviews,
-    warranty,
-    image: ""
-  });
+  name: name.trim(),
+  price: price.replace(/[^0-9]/g, ""),
+  rating: rating,
+  specs,
+  use,
+  reviews,
+  warranty,
+  image: ""
+});
 
   save();
   render();
@@ -374,10 +376,49 @@ function addChat(text, type) {
 }
 
 function getReply(msg) {
+
   msg = msg.toLowerCase();
+
+  /* ================= RECOMMENDATION LOGIC (NEW) ================= */
+
+  if (
+    msg.includes("best") ||
+    msg.includes("sabse") ||
+    msg.includes("achha") ||
+    msg.includes("acha") ||
+    msg.includes("recommend")
+  ) {
+
+    let allProducts = [];
+
+    for (let cat in data) {
+      for (let p of data[cat]) {
+        allProducts.push(p);
+      }
+    }
+
+    // Rating ke hisaab se sort (highest first)
+    allProducts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+    let reply = `<b>🔥 Top Recommended Products:</b><br><br>`;
+
+    allProducts.slice(0, 3).forEach(p => {
+      reply += `
+        ${p.image ? `<img src="${p.image}" style="width:100%;border-radius:10px;margin-bottom:10px;">` : ""}
+        <b>${p.name}</b><br>
+        ⭐ Rating: ${p.rating || "Not rated"}<br>
+        ₹${p.price}<br><br>
+      `;
+    });
+
+    return reply;
+  }
+
+  /* ================= EXACT PRODUCT MATCH (OLD SYSTEM SAFE) ================= */
 
   for (let cat in data) {
     for (let p of data[cat]) {
+
       if (msg.includes(p.name.toLowerCase())) {
 
         return `
@@ -398,7 +439,9 @@ function getReply(msg) {
     }
   }
 
-  return "Welcome to Saini Electricals 🙏<br>Type exact product name for full details.";
+  /* ================= DEFAULT ================= */
+
+  return "Welcome to Saini Electricals 🙏<br>Type exact product name or ask for best recommendation 😎";
 }
 
 /* ================= EDIT MODE ================= */
