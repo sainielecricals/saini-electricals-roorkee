@@ -81,21 +81,20 @@ body{
 
 /* WhatsApp button */
 .whatsapp-btn {
-  background: rgba(0,0,0,0.6);
-  color: #d4af37;
+  background: #25D366;   /* WhatsApp green */
+  color: #ffffff;        /* White text */
   padding: 15px 36px;
   border-radius: 50px;
-  border: 2px solid #d4af37;
+  border: none;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s ease;
-  backdrop-filter: blur(5px);
 }
 
 .whatsapp-btn:hover {
-  background: #d4af37;
-  color: #000;
+  background: #1ebe5d;   /* Darker green on hover */
   transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
 }
 
 /* ================= PRODUCTS ================= */
