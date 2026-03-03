@@ -542,6 +542,60 @@ function scrollToProducts() {
     });
   }
 }
+/* ================= HERO IMAGE CONTROL ================= */
+
+function enableHeroControl() {
+
+  if (!isEditMode) return;
+
+  const panel = document.createElement("div");
+  panel.style.position = "fixed";
+  panel.style.bottom = "20px";
+  panel.style.left = "20px";
+  panel.style.background = "#111";
+  panel.style.padding = "15px";
+  panel.style.border = "1px solid #d4af37";
+  panel.style.borderRadius = "10px";
+  panel.style.zIndex = "9999";
+  panel.style.color = "#fff";
+
+  panel.innerHTML = `
+    <div style="margin-bottom:10px;font-weight:bold;color:#d4af37;">
+      Hero Image Adjust
+    </div>
+
+    Zoom:
+    <input type="range" min="100" max="200" value="100"
+      oninput="adjustZoom(this.value)">
+    <br><br>
+
+    Position X:
+    <input type="range" min="0" max="100" value="50"
+      oninput="adjustPosition()"
+      id="posX">
+    <br><br>
+
+    Position Y:
+    <input type="range" min="0" max="100" value="50"
+      oninput="adjustPosition()"
+      id="posY">
+  `;
+
+  document.body.appendChild(panel);
+}
+
+function adjustZoom(value) {
+  document.documentElement.style
+    .setProperty("--hero-size", value + "%");
+}
+
+function adjustPosition() {
+  const x = document.getElementById("posX").value;
+  const y = document.getElementById("posY").value;
+
+  document.documentElement.style
+    .setProperty("--hero-position", x + "% " + y + "%");
+}
 
 /* INIT */
 applyBodyBackground();
