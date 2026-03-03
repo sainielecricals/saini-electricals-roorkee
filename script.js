@@ -516,6 +516,23 @@ function enableBackgroundUploads() {
 
   document.body.appendChild(heroInput);
 }
+function applyHeroBackground() {
+
+  const hero = document.getElementById("heroSection");
+  if (!hero) return;
+
+  const saved = localStorage.getItem("heroBackground");
+
+  const image = saved
+    ? saved
+    : "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80";
+
+  hero.style.setProperty(
+    "background",
+    `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('${image}')`,
+    "important"
+  );
+}
 
 /* INIT */
 applyBodyBackground();
