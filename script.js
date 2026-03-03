@@ -15,6 +15,8 @@ function save() {
   localStorage.setItem("sainiData", JSON.stringify(data));
 }
 
+/* ================= RENDER ================= */
+
 function render() {
   const container = document.getElementById("products");
   container.innerHTML = "";
@@ -22,6 +24,7 @@ function render() {
   for (let cat in data) {
 
     let section = document.createElement("div");
+
     section.innerHTML = `
       <h2 style="color:#d4af37;margin-top:40px;">
         ${cat}
@@ -70,11 +73,20 @@ function render() {
   }
 }
 
+/* ================= HERO BUTTON ================= */
+
+function scrollToProducts() {
+  document.getElementById("products")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+/* ================= ORDER ================= */
+
 function order(name) {
   window.open("https://wa.me/919548021272?text=Details about " + name);
 }
 
-/* CATEGORY FUNCTIONS */
+/* ================= CATEGORY ================= */
 
 function addCategory() {
   let name = prompt("New Category Name:");
@@ -101,7 +113,7 @@ function deleteCategory(name) {
   render();
 }
 
-/* PRODUCT FUNCTIONS */
+/* ================= PRODUCT ================= */
 
 function addProduct() {
   let cat = prompt("Category Name:");
@@ -129,7 +141,54 @@ function updateProduct(cat, index, value, field) {
   save();
 }
 
-/* EDIT MODE TRIGGER */
+/* ================= CHAT ================= */
+
+function toggleChat() {
+  document.getElementById("chatBox").classList.toggle("hidden");
+}
+
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  addChat(msg, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    addChat(getReply(msg), "bot");
+  }, 500);
+}
+
+function addChat(text, type) {
+  const chat = document.getElementById("chatMessages");
+  const div = document.createElement("div");
+
+  div.style.margin = "6px";
+  div.style.textAlign = type === "user" ? "right" : "left";
+  div.innerHTML = text;
+
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function getReply(msg) {
+  msg = msg.toLowerCase();
+
+  for (let cat in data) {
+    for (let p of data[cat]) {
+      if (msg.includes(p.name.toLowerCase())) {
+        return `<b>${p.name}</b><br>₹${p.price}<br>
+        <a href="https://wa.me/919548021272" target="_blank">
+        Order on WhatsApp 📲</a>`;
+      }
+    }
+  }
+
+  return "Welcome to Saini Electricals 🙏<br>Type product name for details.";
+}
+
+/* ================= EDIT MODE ================= */
 
 const params = new URLSearchParams(window.location.search);
 if (params.get("edit") === password) {
