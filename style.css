@@ -205,3 +205,19 @@ footer{
   padding:20px;
   margin-top:40px;
 }
+.location-btn {
+  background: #000;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 40px;
+  border: 2px solid #d4af37;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.location-btn:hover {
+  background: #d4af37;
+  color: #000;
+  transform: translateY(-4px);
+}
