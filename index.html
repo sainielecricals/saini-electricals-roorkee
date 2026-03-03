@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saini Electricals – Official</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <h1>⚡ SAINI ELECTRICALS – ROORKEE</h1>
+  <p>Solar • Batteries • Wires • AC • Inverter • Lighting</p>
+  <button onclick="scrollToProducts()">Shop Now</button>
+  <a href="https://wa.me/919548021272" target="_blank" class="whatsapp-btn">WhatsApp</a>
+</header>
+
+<section id="adminPanel" class="admin hidden"></section>
+
+<section id="products"></section>
+
+<!-- CHATBOT -->
+<div id="chatButton" onclick="toggleChat()">💬</div>
+
+<div id="chatBox" class="hidden">
+  <div class="chat-header">
+    Saini Assistant
+    <span onclick="toggleChat()">✖</span>
+  </div>
+  <div id="chatMessages" class="chat-messages"></div>
+  <div class="chat-input">
+    <input id="userInput" placeholder="Ask product name...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

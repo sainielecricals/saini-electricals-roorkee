@@ -1,0 +1,18 @@
+body{margin:0;font-family:Arial;background:#0f0f0f;color:#fff}
+.hero{text-align:center;padding:80px 20px;background:linear-gradient(135deg,#ff7a00,#111);animation:fadeIn 1s ease}
+.hero button,.whatsapp-btn{margin:10px;padding:10px 20px;border:none;border-radius:6px;background:#ff9800;color:#fff;cursor:pointer;transition:.3s}
+.hero button:hover{transform:scale(1.1)}
+.whatsapp-btn{background:#25D366;text-decoration:none}
+#products{text-align:center;padding:40px}
+.card{background:#1b1b1b;width:260px;padding:20px;margin:15px;display:inline-block;border-radius:20px;transition:.4s;animation:fadeUp .6s ease}
+.card:hover{transform:translateY(-10px);box-shadow:0 10px 30px rgba(255,122,0,.6)}
+.admin{background:#111;padding:20px;text-align:center}
+.hidden{display:none}
+#chatButton{position:fixed;bottom:20px;right:20px;background:#ff00cc;padding:15px;border-radius:50%;cursor:pointer}
+#chatBox{position:fixed;bottom:90px;right:20px;width:320px;height:450px;background:#000;border-radius:25px;display:flex;flex-direction:column}
+.chat-header{background:linear-gradient(90deg,#ff00cc,#4f46ff);padding:12px;display:flex;justify-content:space-between}
+.chat-messages{flex:1;padding:10px;overflow:auto}
+.chat-input{display:flex;padding:10px}
+.chat-input input{flex:1;padding:10px;border-radius:20px;border:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
