@@ -132,7 +132,108 @@ function render() {
     `;
   }
 }
+/* ================= BODY BACKGROUND ================= */
 
+function applyBodyBackground() {
+
+  const saved = localStorage.getItem("siteBackground");
+
+  if (saved) {
+    document.body.style.background =
+      `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), url('${saved}')`;
+  } else {
+    document.body.style.background =
+      `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)),
+       url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1600&q=80')`;
+  }
+
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundAttachment = "fixed";
+}
+
+function enableBodyBgUpload() {
+
+  if (!isEditMode) return;
+
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.title = "Change Full Page Background";
+
+  input.style.position = "fixed";
+  input.style.top = "60px";
+  input.style.left = "10px";
+  input.style.zIndex = "9999";
+
+  input.onchange = function () {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      localStorage.setItem("siteBackground", e.target.result);
+      applyBodyBackground();
+    };
+    reader.readAsDataURL(this.files[0]);
+  };
+
+  document.body.appendChild(input);
+}
+
+
+/* ================= HERO BACKGROUND ================= */
+
+function applyHeroBackground() {
+
+  const hero = document.getElementById("heroSection");
+  if (!hero) return;
+
+  const saved = localStorage.getItem("heroBackground");
+
+  if (saved) {
+    hero.style.background =
+      `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('${saved}')`;
+  } else {
+    hero.style.background =
+      `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+       url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80')`;
+  }
+
+  hero.style.backgroundSize = "cover";
+  hero.style.backgroundPosition = "center";
+}
+
+function enableHeroBgUpload() {
+
+  if (!isEditMode) return;
+
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.title = "Change Hero Background";
+
+  input.style.position = "fixed";
+  input.style.top = "110px";
+  input.style.left = "10px";
+  input.style.zIndex = "9999";
+
+  input.onchange = function () {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      localStorage.setItem("heroBackground", e.target.result);
+      applyHeroBackground();
+    };
+    reader.readAsDataURL(this.files[0]);
+  };
+
+  document.body.appendChild(input);
+}
+
+
+/* ================= INIT BACKGROUNDS ================= */
+
+applyBodyBackground();
+applyHeroBackground();
+enableBodyBgUpload();
+enableHeroBgUpload();
 /* ================= IMAGE UPLOAD ================= */
 
 function uploadImage(cat, index, input) {
