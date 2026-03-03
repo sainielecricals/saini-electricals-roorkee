@@ -1,18 +1,157 @@
-body{margin:0;font-family:Arial;background:#0f0f0f;color:#fff}
-.hero{text-align:center;padding:80px 20px;background:linear-gradient(135deg,#ff7a00,#111);animation:fadeIn 1s ease}
-.hero button,.whatsapp-btn{margin:10px;padding:10px 20px;border:none;border-radius:6px;background:#ff9800;color:#fff;cursor:pointer;transition:.3s}
-.hero button:hover{transform:scale(1.1)}
-.whatsapp-btn{background:#25D366;text-decoration:none}
-#products{text-align:center;padding:40px}
-.card{background:#1b1b1b;width:260px;padding:20px;margin:15px;display:inline-block;border-radius:20px;transition:.4s;animation:fadeUp .6s ease}
-.card:hover{transform:translateY(-10px);box-shadow:0 10px 30px rgba(255,122,0,.6)}
-.admin{background:#111;padding:20px;text-align:center}
-.hidden{display:none}
-#chatButton{position:fixed;bottom:20px;right:20px;background:#ff00cc;padding:15px;border-radius:50%;cursor:pointer}
-#chatBox{position:fixed;bottom:90px;right:20px;width:320px;height:450px;background:#000;border-radius:25px;display:flex;flex-direction:column}
-.chat-header{background:linear-gradient(90deg,#ff00cc,#4f46ff);padding:12px;display:flex;justify-content:space-between}
-.chat-messages{flex:1;padding:10px;overflow:auto}
-.chat-input{display:flex;padding:10px}
-.chat-input input{flex:1;padding:10px;border-radius:20px;border:none}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0b0b0b;
+  color:#fff;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:90vh;
+  background:linear-gradient(135deg,#000,#1a1a1a);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:48px;
+  color:#d4af37;
+  text-shadow:0 0 20px #d4af37;
+}
+
+.tagline{
+  color:#ccc;
+  margin-bottom:30px;
+}
+
+.hero-buttons button,
+.whatsapp-btn{
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  border-radius:30px;
+  background:#d4af37;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.hero-buttons button:hover{
+  box-shadow:0 0 20px #d4af37;
+}
+
+.whatsapp-btn{
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+}
+
+/* PRODUCT CARDS */
+#products{
+  padding:60px 20px;
+  text-align:center;
+}
+
+.card{
+  background:#141414;
+  border:1px solid #d4af37;
+  border-radius:20px;
+  width:260px;
+  display:inline-block;
+  margin:15px;
+  padding:20px;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 25px #d4af37;
+}
+
+.card h3{
+  color:#d4af37;
+}
+
+.card button{
+  padding:8px 15px;
+  background:#d4af37;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* CHAT */
+#chatButton{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#d4af37;
+  color:#000;
+  padding:15px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+#chatBox{
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  width:320px;
+  height:450px;
+  background:#111;
+  border-radius:25px;
+  display:flex;
+  flex-direction:column;
+  border:1px solid #d4af37;
+}
+
+.hidden{display:none;}
+
+.chat-header{
+  background:#d4af37;
+  color:#000;
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  border-radius:25px 25px 0 0;
+}
+
+.chat-messages{
+  flex:1;
+  padding:10px;
+  overflow:auto;
+}
+
+.chat-input{
+  display:flex;
+  padding:10px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:8px;
+  border-radius:20px;
+  border:none;
+}
+
+.chat-input button{
+  background:#d4af37;
+  border:none;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  border-top:1px solid #d4af37;
+  text-align:center;
+  padding:20px;
+  margin-top:40px;
+}
