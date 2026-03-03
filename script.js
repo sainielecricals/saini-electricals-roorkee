@@ -427,3 +427,97 @@ if (params.get("edit") === password) {
 applyBackground();
 enableBackgroundUpload();
 render();
+/* ================= BACKGROUND SYSTEM ================= */
+
+function applyBodyBackground() {
+
+  const saved = localStorage.getItem("siteBackground");
+
+  if (saved) {
+    document.body.style.background =
+      `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)), url('${saved}')`;
+  } else {
+    document.body.style.background =
+      `linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.9)),
+       url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1600&q=80')`;
+  }
+
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundAttachment = "fixed";
+}
+
+function applyHeroBackground() {
+
+  const hero = document.getElementById("heroSection");
+  if (!hero) return;
+
+  const saved = localStorage.getItem("heroBackground");
+
+  if (saved) {
+    hero.style.background =
+      `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)), url('${saved}')`;
+  } else {
+    hero.style.background =
+      `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+       url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80')`;
+  }
+
+  hero.style.backgroundSize = "cover";
+  hero.style.backgroundPosition = "center";
+}
+
+function enableBackgroundUploads() {
+
+  if (!isEditMode) return;
+
+  // Body Background Button
+  const bodyInput = document.createElement("input");
+  bodyInput.type = "file";
+  bodyInput.accept = "image/*";
+  bodyInput.title = "Change Full Page Background";
+
+  bodyInput.style.position = "fixed";
+  bodyInput.style.top = "60px";
+  bodyInput.style.left = "10px";
+  bodyInput.style.zIndex = "9999";
+
+  bodyInput.onchange = function () {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      localStorage.setItem("siteBackground", e.target.result);
+      applyBodyBackground();
+    };
+    reader.readAsDataURL(this.files[0]);
+  };
+
+  document.body.appendChild(bodyInput);
+
+
+  // Hero Background Button
+  const heroInput = document.createElement("input");
+  heroInput.type = "file";
+  heroInput.accept = "image/*";
+  heroInput.title = "Change Hero Background";
+
+  heroInput.style.position = "fixed";
+  heroInput.style.top = "110px";
+  heroInput.style.left = "10px";
+  heroInput.style.zIndex = "9999";
+
+  heroInput.onchange = function () {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      localStorage.setItem("heroBackground", e.target.result);
+      applyHeroBackground();
+    };
+    reader.readAsDataURL(this.files[0]);
+  };
+
+  document.body.appendChild(heroInput);
+}
+
+/* INIT */
+applyBodyBackground();
+applyHeroBackground();
+enableBackgroundUploads();
