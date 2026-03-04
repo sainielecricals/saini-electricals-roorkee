@@ -382,6 +382,54 @@ function extractRating(reviewText) {
 }
 
 function getReply(msg) {
+  if (msg.includes("bulb")) {
+
+  let reply = `<b>💡 Available Bulbs:</b><br><br>`;
+
+  for (let cat in data) {
+    for (let p of data[cat]) {
+
+      if (p.name.toLowerCase().includes("bulb")) {
+        reply += `
+        • ${p.name} – ₹${p.price}<br>
+        `;
+      }
+
+    }
+  }
+
+  return reply;
+}
+  if (msg.includes("price")) {
+
+  let reply = `<b>💰 Product Prices:</b><br><br>`;
+
+  for (let cat in data) {
+    for (let p of data[cat]) {
+
+      reply += `
+      • ${p.name} – ₹${p.price}<br>
+      `;
+    }
+  }
+
+  return reply;
+}
+  if (
+  msg.includes("location") ||
+  msg.includes("address") ||
+  msg.includes("shop location")
+) {
+  return `
+  📍 <b>Our Shop Location</b><br><br>
+
+  <a href="https://www.google.com/maps/search/?api=1&query=Saini+Electricals+Roorkee"
+  target="_blank"
+  style="color:#d4af37;font-weight:bold;">
+  Open in Google Maps 🗺
+  </a>
+  `;
+}
   if (
   msg === "hi" ||
   msg === "hello" ||
