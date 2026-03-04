@@ -382,6 +382,27 @@ function extractRating(reviewText) {
 }
 
 function getReply(msg) {
+  if (
+  msg === "hi" ||
+  msg === "hello" ||
+  msg === "namaste"
+) {
+  return `
+  👋 <b>Welcome to Saini Electricals</b><br><br>
+
+  Aap kya dekhna chahte ho?<br><br>
+
+  💡 Bulbs<br>
+  🔋 Batteries<br>
+  ⚡ Inverters<br>
+  ☀ Solar Products<br><br>
+
+  Ya type kare:<br>
+  • best bulb<br>
+  • inverter price<br>
+  • shop location
+  `;
+}
 
   msg = msg.toLowerCase();
 
