@@ -1,82 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saini Electricals – Roorkee</title>
-<link rel="stylesheet" href="style.css">
-</head>
 
-<body>
 
-<header class="hero" id="heroSection">
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Saini Electricals – Roorkee</title>  
+<link rel="stylesheet" href="style.css">  
+</head>  
+<body>  <header class="hero" id="heroSection">    <div class="hero-overlay"></div>    <div class="hero-content">  
+    <h1>SAINI ELECTRICALS</h1>  
+    <p>Premium Solar • Batteries • Wires • Inverters • AC Solutions</p>  <div class="hero-buttons">  
+  <button onclick="scrollToProducts()" class="gold-btn">  
+    Explore Products  
+  </button>  
 
-  <div class="hero-overlay"></div>
+  <a href="https://wa.me/919548021272" target="_blank">  
+    <button class="whatsapp-btn">  
+      Order on WhatsApp  
+    </button>  
+  </a>  
+  <a href="https://www.google.com/maps/dir/?api=1&destination=Saini+Electricals+Roorkee" target="_blank">
 
-  <div class="hero-content">
-    <h1>SAINI ELECTRICALS</h1>
-    <p>Premium Solar • Batteries • Wires • Inverters • AC Solutions</p>
-
-    <div class="hero-buttons">
-
-      <button onclick="scrollToProducts()" class="gold-btn">
-        Explore Products
-      </button>
-
-      <a href="https://wa.me/919548021272" target="_blank">
-        <button class="whatsapp-btn">
-          Order on WhatsApp
-        </button>
-      </a>
-
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Saini+Electricals+Roorkee" target="_blank">
-        <button class="location-btn">
-          📍 Get Directions
-        </button>
-      </a>
-
-    </div>
-  </div>
-
-</header>
-
-<section id="products"></section>
-
-<!-- ================= CHATBOT ================= -->
-
-<div id="chatButton" onclick="toggleChat()">💬</div>
-
-<div id="chatBox" class="hidden">
-
-  <div class="chat-header">
-    Saini Assistant
-    <span onclick="toggleChat()">✖</span>
-  </div>
-
-  <div id="chatMessages" class="chat-messages"></div>
-
-  <div class="chat-input">
-    <input 
-      id="userInput" 
-      placeholder="Ask product name..."
-      onkeypress="if(event.key==='Enter'){sendMessage();}"
-    >
-
-    <button onclick="sendMessage()">➤</button>
-  </div>
-
-</div>
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-  <div class="footer-content">
-    <p>📍 Roorkee | 📞 +91 95480 21272</p>
-    <p>© 2026 Saini Electricals – All Rights Reserved</p>
-  </div>
-</footer>
-
-<script src="script.js"></script>
-
-</body>
+  <button class="location-btn">  
+    📍 Get Directions  
+  </button>  
+</a>  
+    </div>  
+  </div>  </header>  <section id="products"></section>  <!-- CHAT -->  <div id="chatButton" onclick="toggleChat()">💬</div>  <div id="chatBox" class="hidden">  
+  <div class="chat-header">  
+    Saini Assistant  
+    <span onclick="toggleChat()">✖</span>  
+  </div>  
+  <div id="chatMessages" class="chat-messages"></div>  
+  <div class="chat-input">  
+    <input id="userInput" placeholder="Ask product name...">  
+    <button onclick="sendMessage()">➤</button>  
+  </div>  
+</div>  <footer>  
+  <div class="footer-content">  
+    <p>📍 Roorkee | 📞 +91 95480 21272</p>  
+    <p>© 2026 Saini Electricals – All Rights Reserved</p>  
+  </div>  
+</footer>  <script src="script.js"></script>  </body>  
 </html>
