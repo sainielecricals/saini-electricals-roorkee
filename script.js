@@ -311,7 +311,7 @@ function addProduct() {
   data[cat].push({
   name: name.trim(),
   price: price.replace(/[^0-9]/g, ""),
-  rating: rating,
+  rating: parseFloat(rating),
   specs,
   use,
   reviews,
