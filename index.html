@@ -6,6 +6,7 @@
 <title>Saini Electricals – Roorkee</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header class="hero" id="heroSection">
@@ -17,6 +18,7 @@
     <p>Premium Solar • Batteries • Wires • Inverters • AC Solutions</p>
 
     <div class="hero-buttons">
+
       <button onclick="scrollToProducts()" class="gold-btn">
         Explore Products
       </button>
@@ -26,11 +28,13 @@
           Order on WhatsApp
         </button>
       </a>
+
       <a href="https://www.google.com/maps/dir/?api=1&destination=Saini+Electricals+Roorkee" target="_blank">
-  <button class="location-btn">
-    📍 Get Directions
-  </button>
-</a>
+        <button class="location-btn">
+          📍 Get Directions
+        </button>
+      </a>
+
     </div>
   </div>
 
@@ -38,20 +42,32 @@
 
 <section id="products"></section>
 
-<!-- CHAT -->
+<!-- ================= CHATBOT ================= -->
+
 <div id="chatButton" onclick="toggleChat()">💬</div>
 
 <div id="chatBox" class="hidden">
+
   <div class="chat-header">
     Saini Assistant
     <span onclick="toggleChat()">✖</span>
   </div>
+
   <div id="chatMessages" class="chat-messages"></div>
+
   <div class="chat-input">
-    <input id="userInput" placeholder="Ask product name...">
+    <input 
+      id="userInput" 
+      placeholder="Ask product name..."
+      onkeypress="if(event.key==='Enter'){sendMessage();}"
+    >
+
     <button onclick="sendMessage()">➤</button>
   </div>
+
 </div>
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
   <div class="footer-content">
@@ -61,5 +77,6 @@
 </footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
