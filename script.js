@@ -299,14 +299,13 @@ function addProduct() {
 
   let name = prompt("Product Name:");
   if (!name) return;
-
   let price = prompt("Price:");
   if (!price) return;
 
   let specs = prompt("Specifications:") || "";
   let use = prompt("Best Use:") || "";
   let reviews = prompt("Reviews Summary:") || "";
-  let rating = parseFloat(prompt("Rating (1 to 5):") || 0);
+  let rating = prompt("Rating (1 to 5):") || "0";
   let warranty = prompt("Warranty:") || "";
 
   data[cat].push({
